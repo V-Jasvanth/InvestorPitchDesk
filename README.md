@@ -16,7 +16,7 @@ Users simply enter startup details, and the system converts them into a structur
 🎯 Investor Readiness Score
 🎨 Modern UI with Light/Dark mode
 🚀 Deployed on cloud (Render)
-🛠️ Tech Stack
+🛠️ Tech Stack !!
 Frontend: HTML, CSS, JavaScript (Bootstrap)
 Backend: Python (Flask)
 Libraries: python-pptx, Gunicorn
@@ -26,4 +26,4 @@ User enters startup details
 System processes input
 Content is formatted into slides
 PPT file is generated automatically
-User downloads investor-ready pitch deck
+User downloads investor-ready pitch deck..

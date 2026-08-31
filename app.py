@@ -6,7 +6,6 @@ from pptx.enum.chart import XL_CHART_TYPE
 from pptx.dml.color import RGBColor
 
 app = Flask(__name__)
-
 @app.route("/")
 def home():
     return render_template("index.html")

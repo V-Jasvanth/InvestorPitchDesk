@@ -35,6 +35,18 @@ right:25px;
 top:20px;
 }
 
+.pitch-progress{
+background:#e9ecef;
+border-radius:10px;
+overflow:hidden;
+}
+
+.pitch-progress-bar{
+height:10px;
+width:0%;
+transition:width 0.3s ease;
+}
+
 </style>
 
 </head>
@@ -45,21 +57,19 @@ top:20px;
 
 <div class="card shadow-lg p-4 position-relative">
 
-<!-- Toggle Button -->
 <div id="themeToggle" class="toggle-btn">
 🌙
 </div>
 
 <div class="text-center mb-4">
 <h1 style="color:#6A0DAD;font-weight:800;">
-🚀 InvestoDeck
+InvestoDeck
 </h1>
 
 <p style="color:#00BFFF;font-size:18px;">
 Launch Investor-Ready Pitches
 </p>
 </div>
-
 
 <form action="/submit" method="POST">
 
@@ -77,21 +87,24 @@ Launch Investor-Ready Pitches
 
 </div>
 
-
 <div class="mb-3">
 <label>Problem Statement</label>
 <textarea id="problemInput" name="problem" class="form-control" rows="3"></textarea>
 </div>
+
 <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="rewriteProblem()">
-✨ AI Rewrite
+AI Rewrite
 </button>
+
 <div class="mb-3">
 <label>Solution</label>
 <textarea id="solutionInput" name="solution" class="form-control" rows="3"></textarea>
 </div>
+
 <button type="button" class="btn btn-outline-success btn-sm mt-2" onclick="rewriteSolution()">
-✨ AI Rewrite
+AI Rewrite
 </button>
+
 <div class="mb-3">
 <label>Target Market</label>
 <textarea name="market" class="form-control" rows="3"></textarea>
@@ -106,7 +119,6 @@ Launch Investor-Ready Pitches
 <label>Funding Requirement</label>
 <textarea name="funding" class="form-control" rows="3"></textarea>
 </div>
-
 
 <h5 class="mt-4 mb-3">Financial Projections</h5>
 
@@ -129,6 +141,22 @@ Launch Investor-Ready Pitches
 
 </div>
 
+<div class="mt-4 p-3 border rounded">
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+<strong>Pitch Completeness</strong>
+<strong id="completionText">0%</strong>
+</div>
+
+<div class="pitch-progress">
+<div id="completionBar" class="progress-bar pitch-progress-bar"></div>
+</div>
+
+<small id="completionHint" class="text-muted d-block mt-2">
+Complete the pitch details and financial projections before generating your deck.
+</small>
+
+</div>
 
 <div class="text-center mt-4">
 <button class="btn btn-primary btn-lg">
@@ -140,7 +168,6 @@ Generate Pitch Deck
 
 </div>
 </div>
-
 
 <script>
 
@@ -161,9 +188,74 @@ toggle.innerHTML = "🌙";
 }
 
 });
+
+const trackedFields = [
+"startup",
+"tagline",
+"problem",
+"solution",
+"market",
+"revenue",
+"funding",
+"year1",
+"year2",
+"year3"
+];
+
+function updateCompletion(){
+
+let completed = 0;
+
+trackedFields.forEach(name => {
+
+const field = document.querySelector(`[name="${name}"]`);
+
+if(field && field.value.trim().length > 0){
+completed++;
+}
+
+});
+
+const percentage = Math.round(
+(completed / trackedFields.length) * 100
+);
+
+document.getElementById("completionBar").style.width =
+percentage + "%";
+
+document.getElementById("completionText").textContent =
+percentage + "%";
+
+const hint = document.getElementById("completionHint");
+
+if(percentage === 100){
+
+hint.textContent =
+"All pitch sections are complete and ready for generation.";
+
+}else{
+
+hint.textContent =
+completed + " of " +
+trackedFields.length +
+" sections completed.";
+
+}
+
+}
+
+document.querySelectorAll("[name]").forEach(field => {
+
+field.addEventListener("input", updateCompletion);
+
+});
+
+updateCompletion();
+
 function rewriteProblem(){
 
-let text = document.getElementById("problemInput").value;
+let text =
+document.getElementById("problemInput").value;
 
 if(text.length < 5){
 alert("Please write the problem first.");
@@ -175,13 +267,17 @@ let improved =
 text +
 ". By leveraging technology and scalable solutions, we aim to create meaningful impact for affected users.";
 
-document.getElementById("problemInput").value = improved;
+document.getElementById("problemInput").value =
+improved;
+
+updateCompletion();
 
 }
 
 function rewriteSolution(){
 
-let text = document.getElementById("solutionInput").value;
+let text =
+document.getElementById("solutionInput").value;
 
 if(text.length < 5){
 alert("Please write the solution first.");
@@ -193,9 +289,13 @@ let improved =
 text +
 ". This approach enhances efficiency, improves accessibility, and creates sustainable value for users.";
 
-document.getElementById("solutionInput").value = improved;
+document.getElementById("solutionInput").value =
+improved;
+
+updateCompletion();
 
 }
+
 </script>
 
 </body>

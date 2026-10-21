@@ -1,10 +1,8 @@
 🚀 InvestoDeck – AI-Powered Investor Pitch Generator
-
 🔗 Live Demo:
 https://investodeck.onrender.com/
 📌 Overview
 InvestoDeck is a web-based application that helps users generate professional investor pitch decks automatically.
-
 Users simply enter startup details, and the system converts them into a structured PowerPoint presentation ready for investors.
 ✨ Features
 🧠 AI-style content rewriting
